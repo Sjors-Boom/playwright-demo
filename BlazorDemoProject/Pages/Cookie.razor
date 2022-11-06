@@ -1,0 +1,15 @@
+﻿@using BlazorDemoProject.Pages
+
+<PageTitle>Cookie reader</PageTitle>
+
+<h1>Cookie</h1>
+
+<p>This page shows the value of a cookie for this session.</p>
+
+@if (!string.IsNullOrWhiteSpace(CookieValue))
+{
+    <span id="cookieValue">
+        @CookieValue
+    </span>
+}
+

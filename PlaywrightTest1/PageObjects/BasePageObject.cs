@@ -25,5 +25,10 @@ namespace PlaywrightTest1.PageObjects
         }
 
         public abstract Task OpenAsync();
+
+        public async Task ReloadAsync()
+        {
+            await _page.ReloadAsync();
+        }
     }
 }

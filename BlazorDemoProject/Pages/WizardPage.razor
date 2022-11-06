@@ -1,0 +1,21 @@
+﻿<h1>Wizard</h1>
+
+<MudTable id="wizardTable" T="KeyValuePair<string,string>" Context="prop" Items="ProppertyList">
+    <HeaderContent>
+        <MudTh>Name</MudTh>
+        <MudTh>Value</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd>@prop.Key</MudTd>
+        <MudTd>@prop.Value</MudTd>
+    </RowTemplate>
+</MudTable>
+
+<BlazorDemoProject.Components.Wizard>
+    @foreach (var prop in ProppertyList)
+    {
+        <BlazorDemoProject.Components.WizardStep>
+            <BlazorDemoProject.Components.TextFieldWizardStep Label="@prop.Key" Value="@prop.Value" ValueChanged="(val=> ValueChanged(prop.Key, val))" />
+        </BlazorDemoProject.Components.WizardStep>
+    }
+</BlazorDemoProject.Components.Wizard>

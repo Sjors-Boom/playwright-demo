@@ -7,5 +7,6 @@ namespace PlaywrightTest1.PageObjects
     {
         void SetPage(IPage page);
         Task OpenAsync();
+        Task ReloadAsync();
     }
 }

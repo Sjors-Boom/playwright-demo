@@ -5,7 +5,10 @@ using Microsoft.Playwright.NUnit;
 using PlaywrightTest1.Helpers;
 using PlaywrightTest1.PageObjects;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace PlaywrightTest1.Init;
@@ -24,15 +27,28 @@ public class PlaywrightServiceProvider : IWorkerService
            .AddJsonFile("appsettings.json")
            .Build();
 
-        _serviceProvider = new ServiceCollection()
+        IServiceCollection serviceCollection = new ServiceCollection()
             .AddSingleton<IConfiguration>(configuration)
             .AddScoped<UrlService>()
-            .AddScoped<ScreenshotTestResult>()
-            .AddScoped<MenuPage>()
-            .AddScoped<MicrosoftPage>()
+            .AddScoped<ISnackbarLocatorService, SnackbarLocatorService>();
+        AddPAgeObjects(serviceCollection);
+        _serviceProvider = serviceCollection
             .BuildServiceProvider();
 
         _scope = _serviceProvider.CreateScope();
+    }
+
+    public static void AddPAgeObjects(IServiceCollection serviceCollection)
+    {
+        IEnumerable<Type> pageObjects = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(type => typeof(IPageObject).IsAssignableFrom(type))
+            .Where(type => !type.IsAbstract);
+
+        foreach (Type pageObject in pageObjects)
+        {
+            serviceCollection.AddScoped(pageObject);
+        }
     }
 
     public T IPageObjectGetPageObject<T>(IPage page) where T : IPageObject

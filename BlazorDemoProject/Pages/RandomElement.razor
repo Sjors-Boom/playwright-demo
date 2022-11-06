@@ -1,0 +1,21 @@
+﻿@using BlazorDemoProject.Pages
+
+<PageTitle>Random element</PageTitle>
+
+<h1>Random element</h1>
+
+<p>This page shows a list of random elements with only @(RelevantElementCount) relevant items.</p>
+
+@if (IsValid)
+{
+    <MudAlert id="randomElementSelectedState" Severity="Severity.Success" Variant="Variant.Filled">The correct values are selected</MudAlert>
+}
+else
+{
+    <MudAlert id="randomElementSelectedState" Severity="Severity.Warning" Variant="Variant.Filled">Not the right values are selected</MudAlert>
+}
+
+@foreach (var keyValue in Values)
+{
+    <MudCheckBox T="bool" Checked="keyValue.Value" id="@GetId(keyValue.Key)" CheckedChanged="v=>UpdateChecked(keyValue.Key, v)" Label="@keyValue.Key.ToString()" />
+}
