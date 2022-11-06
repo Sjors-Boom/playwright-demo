@@ -7,8 +7,8 @@ namespace PlaywrightTest1.BlazorDemo.Delay
 {
     public class DelayPageObject : BasePageObject
     {
-        public ILocator Button => default!;
-        public ILocator SuccesMessage => default!;// Hint: Build SuccesMessageLocator with the SnackbarLocatorService
+        public ILocator Button => _page.Locator("#startProcessing");
+        public ILocator SuccesMessage => SnackbarLocatorService.BuildLocator(_page, "Action is completed", "success");
         public ISnackbarLocatorService SnackbarLocatorService { get; set; }
         public DelayPageObject(UrlService urlService, ISnackbarLocatorService snackbarLocatorService)
             : base(urlService)
@@ -16,9 +16,9 @@ namespace PlaywrightTest1.BlazorDemo.Delay
             SnackbarLocatorService = snackbarLocatorService;
         }
 
-        public override Task OpenAsync()
+        public override async Task OpenAsync()
         {
-            throw new System.NotImplementedException();
+            await Navigate("delay");
         }
     }
 }

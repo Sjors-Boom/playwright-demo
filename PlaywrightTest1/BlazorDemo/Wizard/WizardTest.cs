@@ -39,16 +39,16 @@ namespace PlaywrightTest1.BlazorDemo.Wizard
                 ILocator tableValueLocator = sut.TableValue(pair.Key);
 
                 //Check current value
-                //TODO in table tableValueLocator
-                //TODO in input field
+                await Expect(tableValueLocator).ToHaveTextAsync(pair.Value);
+                await Expect(sut.WizardField).ToHaveValueAsync(pair.Value);
 
                 //Update to new value
-                //TODO fill field with new value
+                await sut.WizardField.FillAsync(value);
 
                 await sut.NextButton.ClickAsync();
 
                 //Check if new value has updated in table
-                //TODO 
+                await Expect(tableValueLocator).ToHaveTextAsync(value);
             }
             await Expect(sut.WizardEndMessage).ToBeVisibleAsync();
             await Expect(sut.NextButton).ToBeDisabledAsync();

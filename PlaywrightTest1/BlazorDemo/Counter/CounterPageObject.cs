@@ -7,8 +7,8 @@ namespace PlaywrightTest1.BlazorDemo.Counter
 {
     public class CounterPageObject : BasePageObject
     {
-        public ILocator IncementButton => _page.Locator("#incrementCountbutton");
-        public ILocator CurrentCount => _page.Locator("currentCount");
+        public ILocator IncementButton => _page.Locator("#incrementCountButton");
+        public ILocator CurrentCount => _page.Locator("#currentCount");
         public CounterPageObject(UrlService urlService) : base(urlService)
         { }
 

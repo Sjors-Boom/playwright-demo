@@ -11,7 +11,7 @@ namespace PlaywrightTest1.BlazorDemo.RandomElement
         // Sometimes you dont have control over the target
         // so you need to find a different means to differentiate the target
         // Hint: https://www.w3schools.com/css/css_attribute_selectors.asp
-        public ILocator RelevantDropdowns => default!;
+        public ILocator RelevantDropdowns => _page.Locator("input[id^=do-select]");
         public RandomElementPageObject(UrlService urlService)
             : base(urlService)
         { }
